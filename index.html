@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinRise - Finance Education for Gen Z</title>
+    <link rel="stylesheet" href="src/assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <h1>Fin<span>Rise</span></h1>
+                </a>
+            </div>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="src/pages/about.html">About</a></li>
+                    <li><a href="src/pages/articles.html">Articles</a></li>
+                    <li><a href="src/pages/tools.html">Tools</a></li>
+                    <li><a href="#" id="chat-toggle" class="chat-btn"><i class="fas fa-robot"></i> AI Chat</a></li>
+                </ul>
+            </div>
+            <div class="auth-buttons">
+                <button class="btn btn-secondary login-btn">Log In</button>
+                <button class="btn btn-primary signup-btn">Sign Up</button>
+            </div>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Finance Education <span class="gradient-text">Reimagined</span> for Gen Z</h1>
+                <p>Learn to budget, save, and invest with AI-powered tools and youth-led content that speaks your language.</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary">Get Started</button>
+                    <button class="btn btn-secondary">Explore Articles</button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="image-container">
+                    <img src="src/assets/images/hero-image.svg" alt="FinRise Hero Image">
+                </div>
+                <div class="floating-elements">
+                    <div class="floating-element fe-1">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="floating-element fe-2">
+                        <i class="fas fa-piggy-bank"></i>
+                    </div>
+                    <div class="floating-element fe-3">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Articles Section -->
+    <section class="featured-articles">
+        <div class="container">
+            <div class="section-header">
+                <h2>Featured <span class="gradient-text">Articles</span></h2>
+                <p>The latest in finance education, curated for Gen Z</p>
+            </div>
+            <div class="articles-grid">
+                <!-- Articles will be dynamically loaded here -->
+                <div class="article-card">
+                    <div class="article-image">
+                        <img src="src/assets/images/article1.jpg" alt="Article 1">
+                    </div>
+                    <div class="article-content">
+                        <div class="article-tag">Investing</div>
+                        <h3>Getting Started with Investing: A Gen Z Guide</h3>
+                        <p>Learn the basics of investing and how to start building your portfolio with minimal funds.</p>
+                        <a href="src/pages/article.html?id=1" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="article-card">
+                    <div class="article-image">
+                        <img src="src/assets/images/article2.jpg" alt="Article 2">
+                    </div>
+                    <div class="article-content">
+                        <div class="article-tag">Budgeting</div>
+                        <h3>The 50/30/20 Rule: Budgeting Made Simple</h3>
+                        <p>Master the popular budgeting technique that allocates your income to needs, wants, and savings.</p>
+                        <a href="src/pages/article.html?id=2" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="article-card">
+                    <div class="article-image">
+                        <img src="src/assets/images/article3.jpg" alt="Article 3">
+                    </div>
+                    <div class="article-content">
+                        <div class="article-tag">Saving</div>
+                        <h3>Automate Your Savings: Set It and Forget It</h3>
+                        <p>Discover how automation can help you save more money without even thinking about it.</p>
+                        <a href="src/pages/article.html?id=3" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="view-all-container">
+                <a href="src/pages/articles.html" class="btn btn-secondary">View All Articles</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- What We Offer Section -->
+    <section class="what-we-offer">
+        <div class="container">
+            <div class="section-header">
+                <h2>What We <span class="gradient-text">Offer</span></h2>
+                <p>Tools and resources to help you master your finances</p>
+            </div>
+            <div class="offers-grid">
+                <div class="offer-card">
+                    <div class="offer-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>Educational Content</h3>
+                    <p>Articles, guides, and tutorials written by Gen Z finance experts and enthusiasts.</p>
+                </div>
+                <div class="offer-card">
+                    <div class="offer-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3>Financial Tools</h3>
+                    <p>Interactive calculators and planners to help you budget, save, and track your finances.</p>
+                </div>
+                <div class="offer-card">
+                    <div class="offer-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>AI Assistant</h3>
+                    <p>Get personalized finance advice and answers to your questions with our AI chatbot.</p>
+                </div>
+                <div class="offer-card">
+                    <div class="offer-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Weekly Newsletter</h3>
+                    <p>Stay updated with the latest finance tips, news, and insights delivered to your inbox.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Impact Section -->
+    <section class="our-impact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our <span class="gradient-text">Impact</span></h2>
+                <p>Empowering Gen Z to take control of their financial future</p>
+            </div>
+            <div class="impact-stats">
+                <div class="stat-card">
+                    <h3>10,000+</h3>
+                    <p>Active Users</p>
+                </div>
+                <div class="stat-card">
+                    <h3>500+</h3>
+                    <p>Articles Published</p>
+                </div>
+                <div class="stat-card">
+                    <h3>50,000+</h3>
+                    <p>Financial Tools Used</p>
+                </div>
+                <div class="stat-card">
+                    <h3>85%</h3>
+                    <p>User Satisfaction</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2>Community <span class="gradient-text">Testimonials</span></h2>
+                <p>What our users say about FinRise</p>
+            </div>
+            <div class="testimonials-slider">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"FinRise helped me understand investing in a way that actually makes sense. I've started my first portfolio and already seeing growth!"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="src/assets/images/testimonial1.jpg" alt="Testimonial Author">
+                        <div class="author-info">
+                            <h4>Alex Johnson</h4>
+                            <p>College Student, 20</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"The budgeting tools are game-changing. I finally have control over my spending and am saving for my first apartment."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="src/assets/images/testimonial2.jpg" alt="Testimonial Author">
+                        <div class="author-info">
+                            <h4>Maya Rodriguez</h4>
+                            <p>Recent Graduate, 23</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"The AI chatbot is like having a financial advisor in my pocket. It's helped me make smarter decisions about my student loans."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="src/assets/images/testimonial3.jpg" alt="Testimonial Author">
+                        <div class="author-info">
+                            <h4>Jordan Lee</h4>
+                            <p>Young Professional, 25</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slider-controls">
+                <button class="prev-btn"><i class="fas fa-chevron-left"></i></button>
+                <div class="slider-dots">
+                    <span class="dot active"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+                <button class="next-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>Join Our <span class="gradient-text">Newsletter</span></h2>
+                <p>Get weekly finance tips, articles, and resources delivered straight to your inbox.</p>
+                <form id="newsletter-form" class="newsletter-form">
+                    <input type="email" placeholder="Your email address" required>
+                    <button type="submit" class="btn btn-primary">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Join Community Section -->
+    <section class="join-community">
+        <div class="container">
+            <div class="community-content">
+                <h2>Join Our <span class="gradient-text">Community</span></h2>
+                <p>Connect with like-minded individuals, share your finance journey, and learn together.</p>
+                <div class="community-buttons">
+                    <a href="#" class="btn btn-primary"><i class="fab fa-discord"></i> Join Discord</a>
+                    <a href="#" class="btn btn-secondary"><i class="fab fa-instagram"></i> Follow Instagram</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>Fin<span>Rise</span></h2>
+                    <p>Finance education reimagined for Gen Z</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                        <h3>Navigation</h3>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="src/pages/about.html">About</a></li>
+                            <li><a href="src/pages/articles.html">Articles</a></li>
+                            <li><a href="src/pages/tools.html">Tools</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Resources</h3>
+                        <ul>
+                            <li><a href="#">Financial Tools</a></li>
+                            <li><a href="#">Calculators</a></li>
+                            <li><a href="#">Templates</a></li>
+                            <li><a href="#">Glossary</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Company</h3>
+                        <ul>
+                            <li><a href="#">Our Team</a></li>
+                            <li><a href="#">Careers</a></li>
+                            <li><a href="#">Press</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Legal</h3>
+                        <ul>
+                            <li><a href="#">Terms of Service</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Cookie Policy</a></li>
+                            <li><a href="#">Disclaimer</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 FinRise. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                    <a href="#"><i class="fab fa-discord"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AI Chatbot -->
+    <div class="chatbot-container" id="chatbot-container">
+        <div class="chatbot-header">
+            <h3><i class="fas fa-robot"></i> FinRise AI Assistant</h3>
+            <button id="close-chat" class="close-btn"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="chatbot-messages" id="chatbot-messages">
+            <div class="message bot-message">
+                <div class="message-content">
+                    <p>Hi there! I'm the FinRise AI Assistant. How can I help with your finance questions today?</p>
+                </div>
+            </div>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="chat-input" placeholder="Ask me anything about finance...">
+            <button id="send-message" class="send-btn"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- Auth Modals -->
+    <div class="modal" id="login-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Log In</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Log In</button>
+            </form>
+            <p class="modal-footer">Don't have an account? <a href="#" id="signup-link">Sign Up</a></p>
+        </div>
+    </div>
+
+    <div class="modal" id="signup-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Sign Up</h2>
+            <form id="signup-form">
+                <div class="form-group">
+                    <label for="signup-name">Full Name</label>
+                    <input type="text" id="signup-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-confirm-password">Confirm Password</label>
+                    <input type="password" id="signup-confirm-password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Sign Up</button>
+            </form>
+            <p class="modal-footer">Already have an account? <a href="#" id="login-link">Log In</a></p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="src/utils/supabase.js"></script>
+    <script src="src/utils/groq.js"></script>
+    <script src="src/assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Articles - FinRise</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/articles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="../../index.html">
+                    <h1>Fin<span>Rise</span></h1>
+                </a>
+            </div>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="articles.html" class="active">Articles</a></li>
+                    <li><a href="tools.html">Tools</a></li>
+                    <li><a href="#" id="chat-toggle" class="chat-btn"><i class="fas fa-robot"></i> AI Chat</a></li>
+                </ul>
+            </div>
+            <div class="auth-buttons">
+                <button class="btn btn-secondary login-btn">Log In</button>
+                <button class="btn btn-primary signup-btn">Sign Up</button>
+            </div>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="page-hero">
+        <div class="container">
+            <div class="page-hero-content">
+                <h1>Finance <span class="gradient-text">Articles</span></h1>
+                <p>Explore our collection of finance education articles written by Gen Z for Gen Z</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Articles Filter Section -->
+    <section class="articles-filter">
+        <div class="container">
+            <div class="filter-container">
+                <div class="search-box">
+                    <input type="text" id="search-articles" placeholder="Search articles...">
+                    <button id="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="category-filter">
+                    <label for="category-select">Filter by Category:</label>
+                    <select id="category-select">
+                        <option value="all">All Categories</option>
+                        <option value="investing">Investing</option>
+                        <option value="budgeting">Budgeting</option>
+                        <option value="saving">Saving</option>
+                        <option value="credit">Credit</option>
+                        <option value="income">Income</option>
+                    </select>
+                </div>
+                <div class="sort-filter">
+                    <label for="sort-select">Sort by:</label>
+                    <select id="sort-select">
+                        <option value="newest">Newest First</option>
+                        <option value="oldest">Oldest First</option>
+                        <option value="a-z">A-Z</option>
+                        <option value="z-a">Z-A</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Articles Grid Section -->
+    <section class="articles-grid-section">
+        <div class="container">
+            <div class="articles-grid" id="articles-grid">
+                <!-- Articles will be loaded dynamically here -->
+                <div class="article-card">
+                    <div class="article-image">
+                        <img src="../assets/images/article1.jpg" alt="Article 1">
+                    </div>
+                    <div class="article-content">
+                        <div class="article-tag">Investing</div>
+                        <h3>Getting Started with Investing: A Gen Z Guide</h3>
+                        <p>Learn the basics of investing and how to start building your portfolio with minimal funds.</p>
+                        <div class="article-meta">
+                            <span class="article-author">By Alex Johnson</span>
+                            <span class="article-date">June 15, 2025</span>
+                        </div>
+                        <a href="article.html?id=1" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="article-card">
+                    <div class="article-image">
+                        <img src="../assets/images/article2.jpg" alt="Article 2">
+                    </div>
+                    <div class="article-content">
+                        <div class="article-tag">Budgeting</div>
+                        <h3>The 50/30/20 Rule: Budgeting Made Simple</h3>
+                        <p>Master the popular budgeting technique that allocates your income to needs, wants, and savings.</p>
+                        <div class="article-meta">
+                            <span class="article-author">By Maya Rodriguez</span>
+                            <span class="article-date">June 10, 2025</span>
+                        </div>
+                        <a href="article.html?id=2" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="article-card">
+                    <div class="article-image">
+                        <img src="../assets/images/article3.jpg" alt="Article 3">
+                    </div>
+                    <div class="article-content">
+                        <div class="article-tag">Saving</div>
+                        <h3>Automate Your Savings: Set It and Forget It</h3>
+                        <p>Discover how automation can help you save more money without even thinking about it.</p>
+                        <div class="article-meta">
+                            <span class="article-author">By Jordan Lee</span>
+                            <span class="article-date">June 5, 2025</span>
+                        </div>
+                        <a href="article.html?id=3" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="article-card">
+                    <div class="article-image">
+                        <img src="../assets/images/article4.jpg" alt="Article 4">
+                    </div>
+                    <div class="article-content">
+                        <div class="article-tag">Credit</div>
+                        <h3>Understanding Credit Scores: Why They Matter for Gen Z</h3>
+                        <p>Learn why your credit score matters and how to build good credit from an early age.</p>
+                        <div class="article-meta">
+                            <span class="article-author">By Alex Johnson</span>
+                            <span class="article-date">May 28, 2025</span>
+                        </div>
+                        <a href="article.html?id=4" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="article-card">
+                    <div class="article-image">
+                        <img src="../assets/images/article5.jpg" alt="Article 5">
+                    </div>
+                    <div class="article-content">
+                        <div class="article-tag">Income</div>
+                        <h3>Side Hustles for College Students: Earn While You Learn</h3>
+                        <p>Explore flexible ways to make money while maintaining your focus on academics.</p>
+                        <div class="article-meta">
+                            <span class="article-author">By Maya Rodriguez</span>
+                            <span class="article-date">May 20, 2025</span>
+                        </div>
+                        <a href="article.html?id=5" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="pagination">
+                <button class="pagination-btn" id="prev-page" disabled><i class="fas fa-chevron-left"></i> Previous</button>
+                <div class="page-numbers" id="page-numbers">
+                    <button class="page-number active">1</button>
+                </div>
+                <button class="pagination-btn" id="next-page" disabled>Next <i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Writer CTA Section -->
+    <section class="writer-cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Want to <span class="gradient-text">Write</span> for FinRise?</h2>
+                <p>Share your financial knowledge and experiences with our community. We're looking for Gen Z writers who are passionate about finance education.</p>
+                <a href="writer-dashboard.html" class="btn btn-primary">Become a Writer</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>Join Our <span class="gradient-text">Newsletter</span></h2>
+                <p>Get weekly finance tips, articles, and resources delivered straight to your inbox.</p>
+                <form id="newsletter-form" class="newsletter-form">
+                    <input type="email" placeholder="Your email address" required>
+                    <button type="submit" class="btn btn-primary">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>Fin<span>Rise</span></h2>
+                    <p>Finance education reimagined for Gen Z</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                        <h3>Navigation</h3>
+                        <ul>
+                            <li><a href="../../index.html">Home</a></li>
+                            <li><a href="about.html">About</a></li>
+                            <li><a href="articles.html">Articles</a></li>
+                            <li><a href="tools.html">Tools</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Resources</h3>
+                        <ul>
+                            <li><a href="tools.html">Financial Tools</a></li>
+                            <li><a href="#">Calculators</a></li>
+                            <li><a href="#">Templates</a></li>
+                            <li><a href="#">Glossary</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Company</h3>
+                        <ul>
+                            <li><a href="about.html#our-team">Our Team</a></li>
+                            <li><a href="about.html#join-team">Careers</a></li>
+                            <li><a href="#">Press</a></li>
+                            <li><a href="about.html#contact">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Legal</h3>
+                        <ul>
+                            <li><a href="#">Terms of Service</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Cookie Policy</a></li>
+                            <li><a href="#">Disclaimer</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 FinRise. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                    <a href="#"><i class="fab fa-discord"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AI Chatbot -->
+    <div class="chatbot-container" id="chatbot-container">
+        <div class="chatbot-header">
+            <h3><i class="fas fa-robot"></i> FinRise AI Assistant</h3>
+            <button id="close-chat" class="close-btn"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="chatbot-messages" id="chatbot-messages">
+            <div class="message bot-message">
+                <div class="message-content">
+                    <p>Hi there! I'm the FinRise AI Assistant. How can I help with your finance questions today?</p>
+                </div>
+            </div>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="chat-input" placeholder="Ask me anything about finance...">
+            <button id="send-message" class="send-btn"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- Auth Modals -->
+    <div class="modal" id="login-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Log In</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Log In</button>
+            </form>
+            <p class="modal-footer">Don't have an account? <a href="#" id="signup-link">Sign Up</a></p>
+        </div>
+    </div>
+
+    <div class="modal" id="signup-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Sign Up</h2>
+            <form id="signup-form">
+                <div class="form-group">
+                    <label for="signup-name">Full Name</label>
+                    <input type="text" id="signup-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-confirm-password">Confirm Password</label>
+                    <input type="password" id="signup-confirm-password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Sign Up</button>
+            </form>
+            <p class="modal-footer">Already have an account? <a href="#" id="login-link">Log In</a></p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../utils/supabase.js"></script>
+    <script src="../utils/groq.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/articles.js"></script>
+</body>
+</html>

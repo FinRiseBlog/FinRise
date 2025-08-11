@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Writer Dashboard - FinRise</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/articles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="../../index.html">
+                    <h1>Fin<span>Rise</span></h1>
+                </a>
+            </div>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="articles.html" class="active">Articles</a></li>
+                    <li><a href="tools.html">Tools</a></li>
+                    <li><a href="#" id="chat-toggle" class="chat-btn"><i class="fas fa-robot"></i> AI Chat</a></li>
+                </ul>
+            </div>
+            <div class="auth-buttons">
+                <button class="btn btn-secondary login-btn">Log In</button>
+                <button class="btn btn-primary signup-btn">Sign Up</button>
+            </div>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Header -->
+    <section class="dashboard-header">
+        <div class="container">
+            <h1 class="dashboard-title">Writer Dashboard</h1>
+            <p class="dashboard-subtitle">Manage your articles and create new content</p>
+        </div>
+    </section>
+
+    <!-- Dashboard Content -->
+    <section class="dashboard-content">
+        <div class="container">
+            <div class="dashboard-grid">
+                <!-- Dashboard Sidebar -->
+                <div class="dashboard-sidebar">
+                    <div class="dashboard-nav">
+                        <a href="#" class="dashboard-nav-item active" data-section="articles-section">
+                            <i class="fas fa-file-alt"></i>
+                            <span>My Articles</span>
+                        </a>
+                        <a href="#" class="dashboard-nav-item" data-section="editor-section">
+                            <i class="fas fa-edit"></i>
+                            <span>Create Article</span>
+                        </a>
+                        <a href="#" class="dashboard-nav-item" data-section="stats-section">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Analytics</span>
+                        </a>
+                        <a href="#" class="dashboard-nav-item" data-section="profile-section">
+                            <i class="fas fa-user"></i>
+                            <span>Profile</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Dashboard Main Content -->
+                <div class="dashboard-main">
+                    <!-- Articles Section -->
+                    <div class="dashboard-section active" id="articles-section">
+                        <div class="dashboard-section-header">
+                            <h2 class="dashboard-section-title">My Articles</h2>
+                            <p class="dashboard-section-subtitle">Manage your published and draft articles</p>
+                        </div>
+                        
+                        <a href="#" class="btn btn-primary create-article-btn" id="create-article-btn">
+                            <i class="fas fa-plus"></i> Create New Article
+                        </a>
+                        
+                        <div class="articles-table-container">
+                            <table class="articles-table">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Category</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Articles will be loaded dynamically -->
+                                    <tr>
+                                        <td>Getting Started with Investing: A Gen Z Guide</td>
+                                        <td>Investing</td>
+                                        <td>June 15, 2025</td>
+                                        <td><span class="article-status status-published">Published</span></td>
+                                        <td>
+                                            <div class="article-actions">
+                                                <a href="article.html?id=1" class="article-action view" title="View">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                <a href="#" class="article-action edit" title="Edit" data-id="1">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a href="#" class="article-action delete" title="Delete" data-id="1">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>The 50/30/20 Rule: Budgeting Made Simple</td>
+                                        <td>Budgeting</td>
+                                        <td>June 10, 2025</td>
+                                        <td><span class="article-status status-published">Published</span></td>
+                                        <td>
+                                            <div class="article-actions">
+                                                <a href="article.html?id=2" class="article-action view" title="View">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                <a href="#" class="article-action edit" title="Edit" data-id="2">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a href="#" class="article-action delete" title="Delete" data-id="2">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <!-- Editor Section -->
+                    <div class="dashboard-section" id="editor-section">
+                        <div class="dashboard-section-header">
+                            <h2 class="dashboard-section-title">Create Article</h2>
+                            <p class="dashboard-section-subtitle">Write and publish a new article</p>
+                        </div>
+                        
+                        <div class="editor-container">
+                            <div class="editor-form-container">
+                                <form id="editor-form">
+                                    <div class="form-group">
+                                        <label for="article-title">Title</label>
+                                        <input type="text" id="article-title" placeholder="Enter article title" required>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="article-category">Category</label>
+                                        <select id="article-category" required>
+                                            <option value="">Select a category</option>
+                                            <option value="Investing">Investing</option>
+                                            <option value="Budgeting">Budgeting</option>
+                                            <option value="Saving">Saving</option>
+                                            <option value="Credit">Credit</option>
+                                            <option value="Income">Income</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="article-summary">Summary (1-2 sentences)</label>
+                                        <textarea id="article-summary" placeholder="Enter a brief summary of your article" rows="2" required></textarea>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="article-image">Featured Image URL</label>
+                                        <input type="text" id="article-image" placeholder="Enter image URL" required>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="article-content">Content (Markdown)</label>
+                                        <textarea id="article-content" placeholder="Write your article content using Markdown" rows="15" required></textarea>
+                                    </div>
+                                    
+                                    <div class="editor-actions">
+                                        <button type="button" class="btn btn-secondary" id="preview-btn">Preview</button>
+                                        <button type="submit" class="btn btn-primary">Publish Article</button>
+                                    </div>
+                                </form>
+                            </div>
+                            
+                            <div class="editor-preview" id="markdown-preview">
+                                <!-- Markdown preview will be shown here -->
+                                <div class="preview-placeholder">
+                                    <p>Your article preview will appear here as you type.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Stats Section -->
+                    <div class="dashboard-section" id="stats-section">
+                        <div class="dashboard-section-header">
+                            <h2 class="dashboard-section-title">Analytics</h2>
+                            <p class="dashboard-section-subtitle">View statistics for your articles</p>
+                        </div>
+                        
+                        <div class="stats-container">
+                            <div class="stats-summary">
+                                <div class="stat-card">
+                                    <div class="stat-icon">
+                                        <i class="fas fa-file-alt"></i>
+                                    </div>
+                                    <div class="stat-info">
+                                        <h3>Total Articles</h3>
+                                        <p>5</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="stat-card">
+                                    <div class="stat-icon">
+                                        <i class="fas fa-eye"></i>
+                                    </div>
+                                    <div class="stat-info">
+                                        <h3>Total Views</h3>
+                                        <p>1,250</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="stat-card">
+                                    <div class="stat-icon">
+                                        <i class="fas fa-comment"></i>
+                                    </div>
+                                    <div class="stat-info">
+                                        <h3>Total Comments</h3>
+                                        <p>32</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="stat-card">
+                                    <div class="stat-icon">
+                                        <i class="fas fa-share-alt"></i>
+                                    </div>
+                                    <div class="stat-info">
+                                        <h3>Total Shares</h3>
+                                        <p>87</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="stats-charts">
+                                <div class="chart-container">
+                                    <h3>Views by Article</h3>
+                                    <div class="chart-placeholder">
+                                        <p>Chart will be displayed here</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="chart-container">
+                                    <h3>Views Over Time</h3>
+                                    <div class="chart-placeholder">
+                                        <p>Chart will be displayed here</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Profile Section -->
+                    <div class="dashboard-section" id="profile-section">
+                        <div class="dashboard-section-header">
+                            <h2 class="dashboard-section-title">Profile</h2>
+                            <p class="dashboard-section-subtitle">Manage your writer profile</p>
+                        </div>
+                        
+                        <div class="profile-container">
+                            <div class="profile-info">
+                                <div class="profile-avatar">
+                                    <img src="../assets/images/team1.jpg" alt="Profile Avatar">
+                                    <button class="btn btn-secondary change-avatar-btn">Change Avatar</button>
+                                </div>
+                                
+                                <div class="profile-details">
+                                    <form id="profile-form">
+                                        <div class="form-group">
+                                            <label for="profile-name">Name</label>
+                                            <input type="text" id="profile-name" value="Alex Johnson" required>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="profile-email">Email</label>
+                                            <input type="email" id="profile-email" value="writer1@finrise.com" required disabled>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="profile-bio">Bio</label>
+                                            <textarea id="profile-bio" rows="4">Finance graduate with a passion for making complex financial concepts accessible to everyone.</textarea>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="profile-social">Social Media Links</label>
+                                            <input type="text" id="profile-social-twitter" placeholder="Twitter URL">
+                                            <input type="text" id="profile-social-linkedin" placeholder="LinkedIn URL">
+                                            <input type="text" id="profile-social-instagram" placeholder="Instagram URL">
+                                        </div>
+                                        
+                                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                                    </form>
+                                </div>
+                            </div>
+                            
+                            <div class="profile-security">
+                                <h3>Security</h3>
+                                
+                                <form id="password-form">
+                                    <div class="form-group">
+                                        <label for="current-password">Current Password</label>
+                                        <input type="password" id="current-password" required>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="new-password">New Password</label>
+                                        <input type="password" id="new-password" required>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="confirm-password">Confirm New Password</label>
+                                        <input type="password" id="confirm-password" required>
+                                    </div>
+                                    
+                                    <button type="submit" class="btn btn-primary">Change Password</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>Fin<span>Rise</span></h2>
+                    <p>Finance education reimagined for Gen Z</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                        <h3>Navigation</h3>
+                        <ul>
+                            <li><a href="../../index.html">Home</a></li>
+                            <li><a href="about.html">About</a></li>
+                            <li><a href="articles.html">Articles</a></li>
+                            <li><a href="tools.html">Tools</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Resources</h3>
+                        <ul>
+                            <li><a href="tools.html">Financial Tools</a></li>
+                            <li><a href="#">Calculators</a></li>
+                            <li><a href="#">Templates</a></li>
+                            <li><a href="#">Glossary</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Company</h3>
+                        <ul>
+                            <li><a href="about.html#our-team">Our Team</a></li>
+                            <li><a href="about.html#join-team">Careers</a></li>
+                            <li><a href="#">Press</a></li>
+                            <li><a href="about.html#contact">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Legal</h3>
+                        <ul>
+                            <li><a href="#">Terms of Service</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Cookie Policy</a></li>
+                            <li><a href="#">Disclaimer</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 FinRise. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                    <a href="#"><i class="fab fa-discord"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AI Chatbot -->
+    <div class="chatbot-container" id="chatbot-container">
+        <div class="chatbot-header">
+            <h3><i class="fas fa-robot"></i> FinRise AI Assistant</h3>
+            <button id="close-chat" class="close-btn"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="chatbot-messages" id="chatbot-messages">
+            <div class="message bot-message">
+                <div class="message-content">
+                    <p>Hi there! I'm the FinRise AI Assistant. How can I help with your finance questions today?</p>
+                </div>
+            </div>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="chat-input" placeholder="Ask me anything about finance...">
+            <button id="send-message" class="send-btn"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../utils/supabase.js"></script>
+    <script src="../utils/groq.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/articles.js"></script>
+    
+    <script>
+        // Initialize markdown preview
+        document.addEventListener('DOMContentLoaded', () => {
+            const markdownInput = document.getElementById('article-content');
+            const markdownPreview = document.getElementById('markdown-preview');
+            const previewBtn = document.getElementById('preview-btn');
+            
+            if (markdownInput && markdownPreview) {
+                // Update preview as user types
+                markdownInput.addEventListener('input', updatePreview);
+                
+                // Preview button
+                if (previewBtn) {
+                    previewBtn.addEventListener('click', () => {
+                        updatePreview();
+                        
+                        // Scroll preview into view on mobile
+                        if (window.innerWidth < 992) {
+                            markdownPreview.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    });
+                }
+                
+                // Create article button
+                const createArticleBtn = document.getElementById('create-article-btn');
+                if (createArticleBtn) {
+                    createArticleBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        
+                        // Show editor section
+                        document.querySelectorAll('.dashboard-nav-item').forEach(item => {
+                            item.classList.remove('active');
+                            if (item.getAttribute('data-section') === 'editor-section') {
+                                item.classList.add('active');
+                            }
+                        });
+                        
+                        document.querySelectorAll('.dashboard-section').forEach(section => {
+                            section.classList.remove('active');
+                            if (section.id === 'editor-section') {
+                                section.classList.add('active');
+                            }
+                        });
+                    });
+                }
+                
+                // Dashboard navigation
+                document.querySelectorAll('.dashboard-nav-item').forEach(item => {
+                    item.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        
+                        // Get section ID
+                        const sectionId = item.getAttribute('data-section');
+                        
+                        // Update active nav item
+                        document.querySelectorAll('.dashboard-nav-item').forEach(navItem => {
+                            navItem.classList.remove('active');
+                        });
+                        item.classList.add('active');
+                        
+                        // Show selected section
+                        document.querySelectorAll('.dashboard-section').forEach(section => {
+                            section.classList.remove('active');
+                        });
+                        document.getElementById(sectionId).classList.add('active');
+                    });
+                });
+                
+                // Edit article buttons
+                document.querySelectorAll('.article-action.edit').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        
+                        const articleId = button.getAttribute('data-id');
+                        
+                        // Redirect to editor with article ID
+                        window.location.href = `writer-dashboard.html?edit=${articleId}`;
+                    });
+                });
+            }
+            
+            function updatePreview() {
+                if (!markdownInput || !markdownPreview) return;
+                
+                const markdown = markdownInput.value;
+                
+                if (markdown.trim() === '') {
+                    markdownPreview.innerHTML = `
+                        <div class="preview-placeholder">
+                            <p>Your article preview will appear here as you type.</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // Convert markdown to HTML
+                const converter = new showdown.Converter();
+                const html = converter.makeHtml(markdown);
+                
+                markdownPreview.innerHTML = html;
+            }
+        });
+    </script>
+</body>
+</html>
