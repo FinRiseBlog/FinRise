@@ -305,24 +305,63 @@ notificationStyles.textContent = `
 document.head.appendChild(notificationStyles);
 
 // Initialize
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     // Initialize testimonial slider
     showSlide(0);
     
-    // Check if user is logged in
-    checkAuthState();
-    
-    // Load featured articles
-    loadFeaturedArticles();
+    try {
+        // Initialize Supabase tables first
+        await initializeSupabaseTables();
+        
+        // Check if user is logged in
+        checkAuthState();
+        
+        // Load featured articles
+        loadFeaturedArticles();
+        
+        // Track page view
+        trackPageView(window.location.pathname);
+        
+        // Track user interactions
+        trackUserInteractions();
+    } catch (error) {
+        console.error('Initialization error:', error);
+        // Continue with the app even if there's an error
+        // This allows the static content to be displayed
+    }
 });
 
 // Function to load featured articles
 async function loadFeaturedArticles() {
     try {
         const articles = await getFeaturedArticles();
-        renderArticles(articles);
+        if (articles && articles.length > 0) {
+            renderArticles(articles);
+        } else {
+            // Use static articles if no featured articles are found
+            // If no featured articles are found, show a message
+            const articlesGrid = document.querySelector('.articles-grid');
+            if (articlesGrid) {
+                articlesGrid.innerHTML = `
+                    <div class="no-articles">
+                        <h3>No featured articles found</h3>
+                        <p>Check back later for new content or create your own article if you're a writer.</p>
+                    </div>
+                `;
+            }
+        }
     } catch (error) {
         console.error('Error loading articles:', error);
+        // Show error message
+        const articlesGrid = document.querySelector('.articles-grid');
+        if (articlesGrid) {
+            articlesGrid.innerHTML = `
+                <div class="no-articles">
+                    <h3>Error loading articles</h3>
+                    <p>There was a problem loading the articles. Please try again later.</p>
+                </div>
+            `;
+        }
     }
 }
 
@@ -356,12 +395,19 @@ function renderArticles(articles) {
 }
 
 // Function to handle auth state changes
-function handleAuthStateChange(user) {
+async function handleAuthStateChange(user) {
     const authButtons = document.querySelector('.auth-buttons');
     if (!authButtons) return;
     
     if (user) {
         // User is logged in
+        // Determine the correct path prefix based on current page
+        const isInSubfolder = window.location.pathname.includes('/pages/');
+        const pathPrefix = isInSubfolder ? '../' : 'src/';
+        
+        // Check if user is a writer
+        const isWriterStatus = await isWriter(user.email);
+        
         authButtons.innerHTML = `
             <div class="user-menu">
                 <button class="user-button">
@@ -369,8 +415,9 @@ function handleAuthStateChange(user) {
                     <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="user-dropdown">
-                    <a href="src/pages/profile.html">Profile</a>
-                    <a href="src/pages/saved-articles.html">Saved Articles</a>
+                    <a href="${pathPrefix}pages/profile.html">Profile</a>
+                    <a href="${pathPrefix}pages/saved-articles.html">Saved Articles</a>
+                    ${isWriterStatus ? `<a href="${pathPrefix}pages/writer-dashboard.html">Writer Dashboard</a>` : ''}
                     <a href="#" id="logout-btn">Log Out</a>
                 </div>
             </div>
@@ -485,6 +532,65 @@ function handleAuthStateChange(user) {
             signupBtn.addEventListener('click', () => {
                 signupModal.classList.add('active');
             });
+        }
+        
+        // Track user interactions
+        function trackUserInteractions() {
+            // Track button clicks
+            document.addEventListener('click', (e) => {
+                // Check if clicked element is a button or link
+                if (e.target.tagName === 'BUTTON' || e.target.tagName === 'A' ||
+                    e.target.parentElement.tagName === 'BUTTON' || e.target.parentElement.tagName === 'A') {
+                    
+                    // Get element text
+                    let text = e.target.textContent || e.target.parentElement.textContent || 'Unknown';
+                    text = text.trim();
+                    
+                    // Get element ID or class
+                    const id = e.target.id || e.target.parentElement.id || '';
+                    const className = e.target.className || e.target.parentElement.className || '';
+                    
+                    // Track interaction
+                    trackInteraction('click', {
+                        element: e.target.tagName,
+                        text: text,
+                        id: id,
+                        class: className,
+                        page: window.location.pathname
+                    });
+                }
+            });
+            
+            // Track form submissions
+            document.addEventListener('submit', (e) => {
+                // Get form ID or class
+                const id = e.target.id || '';
+                const className = e.target.className || '';
+                
+                // Track interaction
+                trackInteraction('form_submit', {
+                    form: id || className,
+                    page: window.location.pathname
+                });
+            });
+            
+            // Track chatbot usage
+            if (chatInput && sendMessage) {
+                const originalSendChatMessage = sendChatMessage;
+                
+                // Override sendChatMessage function to track interactions
+                sendChatMessage = function() {
+                    if (chatInput.value.trim() === '') return;
+                    
+                    // Track interaction
+                    trackInteraction('chatbot_message', {
+                        message: chatInput.value.trim()
+                    });
+                    
+                    // Call original function
+                    originalSendChatMessage();
+                };
+            }
         }
     }
 }

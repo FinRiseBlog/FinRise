@@ -310,6 +310,9 @@ if (window.location.pathname.includes('article.html')) {
             // Render article
             renderArticle(article);
             
+            // Track article view
+            trackArticleView(articleId, article.title);
+            
             // Fetch comments
             const comments = await getArticleComments(articleId);
             
@@ -585,22 +588,27 @@ function renderRelatedArticles(articles) {
 if (window.location.pathname.includes('writer-dashboard.html')) {
     document.addEventListener('DOMContentLoaded', async () => {
         try {
+            console.log('Initializing writer dashboard');
             // Check if user is logged in
             const session = await supabase.auth.getSession();
             if (!session.data.session) {
+                console.log('User not logged in, redirecting to articles page');
                 window.location.href = 'articles.html';
                 return;
             }
             
             // Check if user is a writer
             const isWriter = await isWriter(session.data.session.user.email);
+            console.log('Is user a writer?', isWriter);
             
             if (!isWriter) {
+                console.log('User is not a writer, redirecting to articles page');
                 window.location.href = 'articles.html';
                 return;
             }
             
             // Initialize dashboard
+            console.log('Initializing dashboard for user ID:', session.data.session.user.id);
             initDashboard(session.data.session.user.id);
         } catch (error) {
             console.error('Error initializing writer dashboard:', error);
@@ -611,17 +619,35 @@ if (window.location.pathname.includes('writer-dashboard.html')) {
 
 // Initialize dashboard
 async function initDashboard(userId) {
-    // Fetch user's articles
-    const articles = await getUserArticles(userId);
+    console.log('initDashboard called with userId:', userId);
     
-    // Render articles table
-    renderArticlesTable(articles);
-    
-    // Initialize dashboard navigation
-    initDashboardNav();
-    
-    // Initialize article editor
-    initArticleEditor(userId);
+    try {
+        // Fetch user's articles
+        console.log('Fetching user articles');
+        const articles = await getUserArticles(userId);
+        console.log('User articles:', articles);
+        
+        // Render articles table
+        console.log('Rendering articles table');
+        renderArticlesTable(articles);
+        
+        // Initialize dashboard navigation
+        console.log('Initializing dashboard navigation');
+        initDashboardNav();
+        
+        // Initialize article editor
+        console.log('Initializing article editor');
+        initArticleEditor(userId);
+        
+        // Track page view
+        console.log('Tracking page view');
+        trackPageView('writer-dashboard');
+        
+        console.log('Dashboard initialization complete');
+    } catch (error) {
+        console.error('Error in initDashboard:', error);
+        showNotification('An error occurred while initializing the dashboard', 'error');
+    }
 }
 
 // Get user's articles
@@ -802,9 +828,14 @@ function initArticleEditor(userId) {
         });
     }
     
+    // Remove any existing event listeners to prevent duplicates
+    const newEditorForm = editorForm.cloneNode(true);
+    editorForm.parentNode.replaceChild(newEditorForm, editorForm);
+    
     // Handle form submission
-    editorForm.addEventListener('submit', async (e) => {
+    newEditorForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+        console.log('Form submitted');
         
         // Get form values
         const title = document.getElementById('article-title').value.trim();
@@ -821,7 +852,7 @@ function initArticleEditor(userId) {
         
         try {
             // Check if editing or creating
-            const articleId = editorForm.getAttribute('data-article-id');
+            const articleId = newEditorForm.getAttribute('data-article-id');
             
             if (articleId) {
                 // Update article
@@ -833,6 +864,7 @@ function initArticleEditor(userId) {
                     image_url: imageUrl
                 };
                 
+                console.log('Updating article:', articleId, updates);
                 const result = await updateArticle(articleId, updates);
                 
                 if (result) {
@@ -856,13 +888,21 @@ function initArticleEditor(userId) {
                     is_featured: false
                 };
                 
+                console.log('Creating article:', article);
                 const result = await createArticle(article);
                 
                 if (result) {
                     showNotification('Article created successfully', 'success');
                     
+                    // Track article creation
+                    trackInteraction('article_created', {
+                        articleId: result.id,
+                        title: result.title,
+                        category: result.category
+                    });
+                    
                     // Reset form
-                    editorForm.reset();
+                    newEditorForm.reset();
                     markdownPreview.innerHTML = '';
                     
                     // Redirect to articles list

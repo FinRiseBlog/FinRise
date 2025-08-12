@@ -385,7 +385,8 @@
                 </div>
                 <div class="form-group">
                     <label for="signup-password">Password</label>
-                    <input type="password" id="signup-password" required>
+                    <input type="password" id="signup-password" minlength="6" required>
+                    <small class="form-text">Password must be at least 6 characters</small>
                 </div>
                 <div class="form-group">
                     <label for="signup-confirm-password">Confirm Password</label>
@@ -401,6 +402,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="src/utils/supabase.js"></script>
     <script src="src/utils/groq.js"></script>
+    <script src="src/utils/analytics.js"></script>
     <script src="src/assets/js/main.js"></script>
 </body>
 </html>

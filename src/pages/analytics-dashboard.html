@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics Dashboard - FinRise</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .dashboard-container {
+            padding: var(--spacing-xl) 0;
+        }
+        
+        .dashboard-header {
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .dashboard-title {
+            font-size: 2rem;
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .dashboard-subtitle {
+            color: var(--gray-dark);
+        }
+        
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .stat-card {
+            background-color: white;
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-md);
+            text-align: center;
+        }
+        
+        .stat-card-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .stat-card-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .stat-card-label {
+            color: var(--gray-dark);
+            font-size: 0.9rem;
+        }
+        
+        .dashboard-charts {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+            gap: var(--spacing-xl);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .chart-container {
+            background-color: white;
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .chart-title {
+            font-size: 1.2rem;
+            margin-bottom: var(--spacing-md);
+            text-align: center;
+        }
+        
+        .chart-canvas {
+            width: 100%;
+            height: 300px;
+        }
+        
+        .dashboard-tables {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+            gap: var(--spacing-xl);
+        }
+        
+        .table-container {
+            background-color: white;
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .table-title {
+            font-size: 1.2rem;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .analytics-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .analytics-table th, .analytics-table td {
+            padding: var(--spacing-sm);
+            text-align: left;
+            border-bottom: 1px solid var(--gray-light);
+        }
+        
+        .analytics-table th {
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+        
+        .analytics-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .reset-button {
+            margin-top: var(--spacing-xl);
+            text-align: center;
+        }
+        
+        .reset-button button {
+            background-color: var(--danger-color);
+            color: white;
+            border: none;
+            padding: var(--spacing-sm) var(--spacing-lg);
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+        
+        .reset-button button:hover {
+            background-color: #d32f2f;
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-charts, .dashboard-tables {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="../../index.html">
+                    <h1>Fin<span>Rise</span></h1>
+                </a>
+            </div>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="articles.html">Articles</a></li>
+                    <li><a href="tools.html">Tools</a></li>
+                    <li><a href="#" id="chat-toggle" class="chat-btn"><i class="fas fa-robot"></i> AI Chat</a></li>
+                </ul>
+            </div>
+            <div class="auth-buttons">
+                <!-- Will be dynamically replaced based on auth state -->
+            </div>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main style="padding-top: 120px; padding-bottom: var(--spacing-xxl);">
+        <div class="container">
+            <div class="dashboard-container">
+                <div class="dashboard-header">
+                    <h1 class="dashboard-title">Analytics <span class="gradient-text">Dashboard</span></h1>
+                    <p class="dashboard-subtitle">Track website performance, user engagement, and content popularity</p>
+                </div>
+                
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <div class="stat-card-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <div class="stat-card-value" id="total-page-views">0</div>
+                        <div class="stat-card-label">Total Page Views</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-card-icon">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <div class="stat-card-value" id="total-article-views">0</div>
+                        <div class="stat-card-label">Total Article Views</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-card-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <div class="stat-card-value" id="total-tool-usage">0</div>
+                        <div class="stat-card-label">Total Tool Usage</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-card-icon">
+                            <i class="fas fa-mouse-pointer"></i>
+                        </div>
+                        <div class="stat-card-value" id="total-interactions">0</div>
+                        <div class="stat-card-label">Total User Interactions</div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-charts">
+                    <div class="chart-container">
+                        <h3 class="chart-title">Page Views by Day</h3>
+                        <canvas id="page-views-chart" class="chart-canvas"></canvas>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <h3 class="chart-title">Article Views by Day</h3>
+                        <canvas id="article-views-chart" class="chart-canvas"></canvas>
+                    </div>
+                </div>
+                
+                <div class="dashboard-tables">
+                    <div class="table-container">
+                        <h3 class="table-title">Most Viewed Articles</h3>
+                        <table class="analytics-table" id="most-viewed-articles">
+                            <thead>
+                                <tr>
+                                    <th>Article Title</th>
+                                    <th>Views</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Will be populated dynamically -->
+                                <tr>
+                                    <td colspan="2">No data available</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="table-container">
+                        <h3 class="table-title">Most Used Tools</h3>
+                        <table class="analytics-table" id="most-used-tools">
+                            <thead>
+                                <tr>
+                                    <th>Tool Name</th>
+                                    <th>Usage Count</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Will be populated dynamically -->
+                                <tr>
+                                    <td colspan="2">No data available</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <h3 class="table-title">Recent User Interactions</h3>
+                    <table class="analytics-table" id="recent-interactions">
+                        <thead>
+                            <tr>
+                                <th>Interaction Type</th>
+                                <th>Details</th>
+                                <th>Timestamp</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Will be populated dynamically -->
+                            <tr>
+                                <td colspan="3">No data available</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="reset-button">
+                    <button id="reset-analytics">Reset Analytics Data</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>Fin<span>Rise</span></h2>
+                    <p>Finance education reimagined for Gen Z</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                        <h3>Navigation</h3>
+                        <ul>
+                            <li><a href="../../index.html">Home</a></li>
+                            <li><a href="about.html">About</a></li>
+                            <li><a href="articles.html">Articles</a></li>
+                            <li><a href="tools.html">Tools</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Resources</h3>
+                        <ul>
+                            <li><a href="tools.html">Financial Tools</a></li>
+                            <li><a href="tools.html">Calculators</a></li>
+                            <li><a href="#">Templates</a></li>
+                            <li><a href="#">Glossary</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Company</h3>
+                        <ul>
+                            <li><a href="about.html">Our Team</a></li>
+                            <li><a href="#">Careers</a></li>
+                            <li><a href="#">Press</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Legal</h3>
+                        <ul>
+                            <li><a href="#">Terms of Service</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Cookie Policy</a></li>
+                            <li><a href="#">Disclaimer</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 FinRise. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                    <a href="#"><i class="fab fa-discord"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AI Chatbot -->
+    <div class="chatbot-container" id="chatbot-container">
+        <div class="chatbot-header">
+            <h3><i class="fas fa-robot"></i> FinRise AI Assistant</h3>
+            <button id="close-chat" class="close-btn"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="chatbot-messages" id="chatbot-messages">
+            <div class="message bot-message">
+                <div class="message-content">
+                    <p>Hi there! I'm the FinRise AI Assistant. How can I help with your finance questions today?</p>
+                </div>
+            </div>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="chat-input" placeholder="Ask me anything about finance...">
+            <button id="send-message" class="send-btn"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../utils/supabase.js"></script>
+    <script src="../utils/groq.js"></script>
+    <script src="../utils/analytics.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script>
+        // Analytics Dashboard Specific JavaScript
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Check if user is logged in and is a writer
+            try {
+                const { data } = await supabase.auth.getSession();
+                
+                if (!data.session) {
+                    // Redirect to home if not logged in
+                    window.location.href = '../../index.html';
+                    return;
+                }
+                
+                // Check if user is a writer
+                const isWriterStatus = await isWriter(data.session.user.email);
+                
+                if (!isWriterStatus) {
+                    // Redirect to home if not a writer
+                    window.location.href = '../../index.html';
+                    return;
+                }
+                
+                // Track page view
+                trackPageView('analytics-dashboard');
+                
+                // Initialize dashboard
+                initDashboard();
+            } catch (error) {
+                console.error('Error checking auth:', error);
+                showNotification('Error checking authentication status', 'error');
+            }
+        });
+        
+        // Initialize dashboard
+        function initDashboard() {
+            // Update stats
+            updateStats();
+            
+            // Initialize charts
+            initCharts();
+            
+            // Update tables
+            updateTables();
+            
+            // Add event listener to reset button
+            document.getElementById('reset-analytics').addEventListener('click', () => {
+                if (confirm('Are you sure you want to reset all analytics data? This action cannot be undone.')) {
+                    resetAnalyticsData();
+                    showNotification('Analytics data has been reset', 'success');
+                    
+                    // Refresh dashboard
+                    updateStats();
+                    initCharts();
+                    updateTables();
+                }
+            });
+        }
+        
+        // Update stats
+        function updateStats() {
+            // Update total page views
+            document.getElementById('total-page-views').textContent = getTotalPageViews();
+            
+            // Update total article views
+            document.getElementById('total-article-views').textContent = getTotalArticleViews();
+            
+            // Update total tool usage
+            let totalToolUsage = 0;
+            const toolUsage = getAnalyticsData().toolUsage;
+            
+            Object.keys(toolUsage).forEach(tool => {
+                Object.keys(toolUsage[tool]).forEach(date => {
+                    totalToolUsage += toolUsage[tool][date];
+                });
+            });
+            
+            document.getElementById('total-tool-usage').textContent = totalToolUsage;
+            
+            // Update total interactions
+            document.getElementById('total-interactions').textContent = getAnalyticsData().userInteractions.length;
+        }
+        
+        // Initialize charts
+        function initCharts() {
+            // Get analytics data
+            const analyticsData = getAnalyticsData();
+            
+            // Prepare data for page views chart
+            const pageViewsData = prepareChartData(analyticsData.pageViews);
+            
+            // Create page views chart
+            const pageViewsCtx = document.getElementById('page-views-chart').getContext('2d');
+            new Chart(pageViewsCtx, {
+                type: 'line',
+                data: {
+                    labels: pageViewsData.labels,
+                    datasets: [{
+                        label: 'Page Views',
+                        data: pageViewsData.data,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 2,
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                precision: 0
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Prepare data for article views chart
+            const articleViewsData = prepareArticleChartData(analyticsData.articleViews);
+            
+            // Create article views chart
+            const articleViewsCtx = document.getElementById('article-views-chart').getContext('2d');
+            new Chart(articleViewsCtx, {
+                type: 'line',
+                data: {
+                    labels: articleViewsData.labels,
+                    datasets: [{
+                        label: 'Article Views',
+                        data: articleViewsData.data,
+                        backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                        borderColor: 'rgba(153, 102, 255, 1)',
+                        borderWidth: 2,
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                precision: 0
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Prepare chart data for page views
+        function prepareChartData(pageViews) {
+            // Get last 7 days
+            const dates = [];
+            for (let i = 6; i >= 0; i--) {
+                const date = new Date();
+                date.setDate(date.getDate() - i);
+                dates.push(date.toISOString().split('T')[0]);
+            }
+            
+            // Prepare data
+            const data = [];
+            
+            dates.forEach(date => {
+                let totalViews = 0;
+                
+                Object.keys(pageViews).forEach(page => {
+                    if (pageViews[page][date]) {
+                        totalViews += pageViews[page][date];
+                    }
+                });
+                
+                data.push(totalViews);
+            });
+            
+            // Format dates for display
+            const labels = dates.map(date => {
+                const d = new Date(date);
+                return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            });
+            
+            return { labels, data };
+        }
+        
+        // Prepare chart data for article views
+        function prepareArticleChartData(articleViews) {
+            // Get last 7 days
+            const dates = [];
+            for (let i = 6; i >= 0; i--) {
+                const date = new Date();
+                date.setDate(date.getDate() - i);
+                dates.push(date.toISOString().split('T')[0]);
+            }
+            
+            // Prepare data
+            const data = [];
+            
+            dates.forEach(date => {
+                let totalViews = 0;
+                
+                Object.keys(articleViews).forEach(articleId => {
+                    if (articleViews[articleId].views[date]) {
+                        totalViews += articleViews[articleId].views[date];
+                    }
+                });
+                
+                data.push(totalViews);
+            });
+            
+            // Format dates for display
+            const labels = dates.map(date => {
+                const d = new Date(date);
+                return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            });
+            
+            return { labels, data };
+        }
+        
+        // Update tables
+        function updateTables() {
+            // Update most viewed articles table
+            const mostViewedArticles = getMostViewedArticles();
+            const mostViewedArticlesTable = document.getElementById('most-viewed-articles').querySelector('tbody');
+            
+            if (mostViewedArticles.length > 0) {
+                mostViewedArticlesTable.innerHTML = '';
+                
+                mostViewedArticles.forEach(article => {
+                    const row = document.createElement('tr');
+                    
+                    row.innerHTML = `
+                        <td>${article.title}</td>
+                        <td>${article.views}</td>
+                    `;
+                    
+                    mostViewedArticlesTable.appendChild(row);
+                });
+            }
+            
+            // Update most used tools table
+            const mostUsedTools = getMostUsedTools();
+            const mostUsedToolsTable = document.getElementById('most-used-tools').querySelector('tbody');
+            
+            if (mostUsedTools.length > 0) {
+                mostUsedToolsTable.innerHTML = '';
+                
+                mostUsedTools.forEach(tool => {
+                    const row = document.createElement('tr');
+                    
+                    row.innerHTML = `
+                        <td>${tool.name}</td>
+                        <td>${tool.usage}</td>
+                    `;
+                    
+                    mostUsedToolsTable.appendChild(row);
+                });
+            }
+            
+            // Update recent interactions table
+            const recentInteractions = getRecentInteractions();
+            const recentInteractionsTable = document.getElementById('recent-interactions').querySelector('tbody');
+            
+            if (recentInteractions.length > 0) {
+                recentInteractionsTable.innerHTML = '';
+                
+                recentInteractions.forEach(interaction => {
+                    const row = document.createElement('tr');
+                    
+                    // Format timestamp
+                    const timestamp = new Date(interaction.timestamp);
+                    const formattedTimestamp = timestamp.toLocaleString('en-US', {
+                        month: 'short',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                    
+                    // Format details
+                    let details = '';
+                    if (interaction.details) {
+                        details = Object.keys(interaction.details)
+                            .map(key => `${key}: ${interaction.details[key]}`)
+                            .join(', ');
+                    }
+                    
+                    row.innerHTML = `
+                        <td>${interaction.type}</td>
+                        <td>${details}</td>
+                        <td>${formattedTimestamp}</td>
+                    `;
+                    
+                    recentInteractionsTable.appendChild(row);
+                });
+            }
+        }
+    </script>
+</body>
+</html>

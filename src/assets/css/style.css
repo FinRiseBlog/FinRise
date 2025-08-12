@@ -1044,6 +1044,13 @@ section {
     font-size: 1rem;
 }
 
+.form-text {
+    display: block;
+    margin-top: var(--spacing-xs);
+    font-size: 0.8rem;
+    color: var(--gray-dark);
+}
+
 .modal-footer {
     text-align: center;
     margin-top: var(--spacing-lg);

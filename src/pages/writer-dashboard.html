@@ -11,6 +11,43 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js"></script>
+    <style>
+        .analytics-dashboard-link {
+            margin-bottom: var(--spacing-xl);
+            text-align: center;
+        }
+        
+        .analytics-dashboard-link .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-md) var(--spacing-lg);
+            font-weight: 600;
+        }
+        
+        .analytics-dashboard-link .btn i {
+            font-size: 1.2rem;
+        }
+        
+        .profile-redirect {
+            text-align: center;
+            padding: var(--spacing-xl);
+            background-color: var(--light-color);
+            border-radius: var(--border-radius-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .profile-redirect p {
+            margin-bottom: var(--spacing-lg);
+            color: var(--gray-dark);
+            font-size: 1.1rem;
+        }
+        
+        .profile-redirect .btn {
+            padding: var(--spacing-md) var(--spacing-xl);
+            font-weight: 600;
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -210,6 +247,12 @@
                             <p class="dashboard-section-subtitle">View statistics for your articles</p>
                         </div>
                         
+                        <div class="analytics-dashboard-link">
+                            <a href="analytics-dashboard.html" class="btn btn-primary">
+                                <i class="fas fa-chart-line"></i> View Detailed Analytics
+                            </a>
+                        </div>
+                        
                         <div class="stats-container">
                             <div class="stats-summary">
                                 <div class="stat-card">
@@ -278,64 +321,9 @@
                             <p class="dashboard-section-subtitle">Manage your writer profile</p>
                         </div>
                         
-                        <div class="profile-container">
-                            <div class="profile-info">
-                                <div class="profile-avatar">
-                                    <img src="../assets/images/team1.jpg" alt="Profile Avatar">
-                                    <button class="btn btn-secondary change-avatar-btn">Change Avatar</button>
-                                </div>
-                                
-                                <div class="profile-details">
-                                    <form id="profile-form">
-                                        <div class="form-group">
-                                            <label for="profile-name">Name</label>
-                                            <input type="text" id="profile-name" value="Alex Johnson" required>
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                            <label for="profile-email">Email</label>
-                                            <input type="email" id="profile-email" value="writer1@finrise.com" required disabled>
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                            <label for="profile-bio">Bio</label>
-                                            <textarea id="profile-bio" rows="4">Finance graduate with a passion for making complex financial concepts accessible to everyone.</textarea>
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                            <label for="profile-social">Social Media Links</label>
-                                            <input type="text" id="profile-social-twitter" placeholder="Twitter URL">
-                                            <input type="text" id="profile-social-linkedin" placeholder="LinkedIn URL">
-                                            <input type="text" id="profile-social-instagram" placeholder="Instagram URL">
-                                        </div>
-                                        
-                                        <button type="submit" class="btn btn-primary">Save Changes</button>
-                                    </form>
-                                </div>
-                            </div>
-                            
-                            <div class="profile-security">
-                                <h3>Security</h3>
-                                
-                                <form id="password-form">
-                                    <div class="form-group">
-                                        <label for="current-password">Current Password</label>
-                                        <input type="password" id="current-password" required>
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label for="new-password">New Password</label>
-                                        <input type="password" id="new-password" required>
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label for="confirm-password">Confirm New Password</label>
-                                        <input type="password" id="confirm-password" required>
-                                    </div>
-                                    
-                                    <button type="submit" class="btn btn-primary">Change Password</button>
-                                </form>
-                            </div>
+                        <div class="profile-redirect">
+                            <p>To manage your profile settings, please visit your profile page.</p>
+                            <a href="profile.html" class="btn btn-primary">Go to Profile Page</a>
                         </div>
                     </div>
                 </div>
@@ -425,6 +413,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../utils/supabase.js"></script>
     <script src="../utils/groq.js"></script>
+    <script src="../utils/analytics.js"></script>
     <script src="../assets/js/main.js"></script>
     <script src="../assets/js/articles.js"></script>
     
@@ -434,6 +423,7 @@
             const markdownInput = document.getElementById('article-content');
             const markdownPreview = document.getElementById('markdown-preview');
             const previewBtn = document.getElementById('preview-btn');
+            const editorForm = document.getElementById('editor-form');
             
             if (markdownInput && markdownPreview) {
                 // Update preview as user types
@@ -471,6 +461,15 @@
                                 section.classList.add('active');
                             }
                         });
+                        
+                        // Reset form if it exists
+                        if (editorForm) {
+                            editorForm.reset();
+                            editorForm.removeAttribute('data-article-id');
+                            document.querySelector('.dashboard-section-title').textContent = 'Create Article';
+                            document.querySelector('#editor-form button[type="submit"]').textContent = 'Publish Article';
+                            updatePreview();
+                        }
                     });
                 }
                 

@@ -45,6 +45,9 @@ function initToolNavigation() {
             const toolId = button.getAttribute('data-tool');
             showTool(toolId);
             
+            // Track tool usage
+            trackToolUsage(toolId);
+            
             // Scroll to tool section
             document.getElementById(toolId).scrollIntoView({ behavior: 'smooth' });
         });
@@ -71,6 +74,9 @@ function initBudgetPlanner() {
     budgetForm.addEventListener('submit', (e) => {
         e.preventDefault();
         calculateBudget();
+        
+        // Track tool usage
+        trackToolUsage('budget-planner');
     });
 }
 
@@ -242,6 +248,9 @@ function initSavingsCalculator() {
     savingsForm.addEventListener('submit', (e) => {
         e.preventDefault();
         calculateSavings();
+        
+        // Track tool usage
+        trackToolUsage('savings-calculator');
     });
 }
 
@@ -483,6 +492,9 @@ function initSubscriptionTracker() {
     subscriptionForm.addEventListener('submit', (e) => {
         e.preventDefault();
         calculateSubscriptions();
+        
+        // Track tool usage
+        trackToolUsage('subscription-tracker');
     });
     
     // Enable remove button for first subscription

@@ -11,6 +11,48 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js"></script>
+    <style>
+        .article-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-xl);
+            padding-bottom: var(--spacing-lg);
+            border-bottom: 1px solid var(--gray-light);
+        }
+        
+        .article-save button {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+        
+        .article-save button.saved {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .article-save button.saved i {
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .article-actions {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--spacing-md);
+            }
+            
+            .article-save {
+                width: 100%;
+            }
+            
+            .article-save button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -132,13 +174,20 @@
                     <a href="articles.html?tag=gen-z" class="tag">gen z</a>
                 </div>
                 
-                <div class="article-share">
-                    <span>Share this article:</span>
-                    <div class="share-buttons">
-                        <a href="#" class="share-button twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="share-button facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="share-button linkedin"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="share-button copy" id="copy-link"><i class="far fa-copy"></i></a>
+                <div class="article-actions">
+                    <div class="article-share">
+                        <span>Share this article:</span>
+                        <div class="share-buttons">
+                            <a href="#" class="share-button twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="share-button facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="share-button linkedin"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" class="share-button copy" id="copy-link"><i class="far fa-copy"></i></a>
+                        </div>
+                    </div>
+                    <div class="article-save">
+                        <button id="save-article-btn" class="btn btn-secondary">
+                            <i class="far fa-bookmark"></i> Save Article
+                        </button>
                     </div>
                 </div>
                 
@@ -175,50 +224,9 @@
             </div>
             <div class="related-articles-grid">
                 <!-- Related articles will be loaded dynamically -->
-                <div class="article-card">
-                    <div class="article-image">
-                        <img src="../assets/images/article2.jpg" alt="Article 2">
-                    </div>
-                    <div class="article-content">
-                        <div class="article-tag">Budgeting</div>
-                        <h3>The 50/30/20 Rule: Budgeting Made Simple</h3>
-                        <p>Master the popular budgeting technique that allocates your income to needs, wants, and savings.</p>
-                        <div class="article-meta">
-                            <span class="article-author">By Maya Rodriguez</span>
-                            <span class="article-date">June 10, 2025</span>
-                        </div>
-                        <a href="article.html?id=2" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                <div class="article-card">
-                    <div class="article-image">
-                        <img src="../assets/images/article3.jpg" alt="Article 3">
-                    </div>
-                    <div class="article-content">
-                        <div class="article-tag">Saving</div>
-                        <h3>Automate Your Savings: Set It and Forget It</h3>
-                        <p>Discover how automation can help you save more money without even thinking about it.</p>
-                        <div class="article-meta">
-                            <span class="article-author">By Jordan Lee</span>
-                            <span class="article-date">June 5, 2025</span>
-                        </div>
-                        <a href="article.html?id=3" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                <div class="article-card">
-                    <div class="article-image">
-                        <img src="../assets/images/article4.jpg" alt="Article 4">
-                    </div>
-                    <div class="article-content">
-                        <div class="article-tag">Credit</div>
-                        <h3>Understanding Credit Scores: Why They Matter for Gen Z</h3>
-                        <p>Learn why your credit score matters and how to build good credit from an early age.</p>
-                        <div class="article-meta">
-                            <span class="article-author">By Alex Johnson</span>
-                            <span class="article-date">May 28, 2025</span>
-                        </div>
-                        <a href="article.html?id=4" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
-                    </div>
+                <div class="loading-articles">
+                    <div class="spinner"></div>
+                    <p>Loading related articles...</p>
                 </div>
             </div>
         </div>
@@ -384,6 +392,71 @@
                     console.error('Failed to copy link:', err);
                     showNotification('Failed to copy link', 'error');
                 });
+        });
+        
+        // Save article functionality
+        document.addEventListener('DOMContentLoaded', async () => {
+            const saveArticleBtn = document.getElementById('save-article-btn');
+            if (!saveArticleBtn) return;
+            
+            // Get article ID from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const articleId = urlParams.get('id');
+            
+            if (!articleId) return;
+            
+            // Check if user is logged in
+            const { data } = await supabase.auth.getSession();
+            if (!data.session) {
+                // User is not logged in, show login prompt when clicked
+                saveArticleBtn.addEventListener('click', () => {
+                    showNotification('Please log in to save articles', 'info');
+                    document.getElementById('login-modal').classList.add('active');
+                });
+                return;
+            }
+            
+            const userId = data.session.user.id;
+            
+            // Check if article is already saved
+            // In a real app, we would check the database
+            // For demo purposes, we'll use localStorage
+            const savedArticles = JSON.parse(localStorage.getItem('savedArticles') || '[]');
+            const isAlreadySaved = savedArticles.some(id => id === articleId);
+            
+            // Update button state
+            if (isAlreadySaved) {
+                saveArticleBtn.classList.add('saved');
+                saveArticleBtn.innerHTML = '<i class="fas fa-bookmark"></i> Saved';
+            }
+            
+            // Add click event listener
+            saveArticleBtn.addEventListener('click', async () => {
+                try {
+                    if (isAlreadySaved) {
+                        // Remove from saved articles
+                        const updatedSavedArticles = savedArticles.filter(id => id !== articleId);
+                        localStorage.setItem('savedArticles', JSON.stringify(updatedSavedArticles));
+                        
+                        saveArticleBtn.classList.remove('saved');
+                        saveArticleBtn.innerHTML = '<i class="far fa-bookmark"></i> Save Article';
+                        
+                        showNotification('Article removed from saved articles', 'success');
+                    } else {
+                        // Add to saved articles
+                        savedArticles.push(articleId);
+                        localStorage.setItem('savedArticles', JSON.stringify(savedArticles));
+                        
+                        saveArticleBtn.classList.add('saved');
+                        saveArticleBtn.innerHTML = '<i class="fas fa-bookmark"></i> Saved';
+                        
+                        showNotification('Article saved successfully!', 'success');
+                    }
+                } catch (error) {
+                    console.error('Error saving article:', error);
+                    showNotification('Error saving article', 'error');
+                }
+            });
         });
     </script>
 </body>
