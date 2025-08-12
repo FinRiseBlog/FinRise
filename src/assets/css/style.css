@@ -1,13 +1,13 @@
 /* ===== VARIABLES ===== */
 :root {
     /* Colors */
-    --primary-color: #6366f1;
-    --primary-light: #818cf8;
-    --primary-dark: #4f46e5;
-    --secondary-color: #10b981;
-    --secondary-light: #34d399;
-    --secondary-dark: #059669;
-    --dark-color: #1e293b;
+    --primary-color: #881a0c;
+    --primary-light: #b10909;
+    --primary-dark: #470c04;
+    --secondary-color: #022d5f;
+    --secondary-light: #0ca36c;
+    --secondary-dark: #0e2742;
+    --dark-color: #000000;
     --dark-light: #334155;
     --light-color: #f8fafc;
     --gray-color: #94a3b8;
@@ -601,7 +601,6 @@ section {
 
 .testimonials-slider {
     display: flex;
-    overflow-x: hidden;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
@@ -632,6 +631,7 @@ section {
     display: flex;
     align-items: center;
     gap: var(--spacing-md);
+    
 }
 
 .testimonial-author img {
@@ -639,6 +639,7 @@ section {
     height: 50px;
     border-radius: var(--border-radius-full);
     object-fit: cover;
+    visibility: hidden;
 }
 
 .author-info h4 {
@@ -700,7 +701,7 @@ section {
 
 /* ===== NEWSLETTER ===== */
 .newsletter {
-    background: var(--primary-gradient);
+    background: var(--secondary-light);
     color: white;
 }
 

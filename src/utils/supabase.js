@@ -351,8 +351,7 @@ async function subscribeToNewsletter(email) {
 
 // Writer Authentication
 async function isWriter(email) {
-    // Special case for ebekalternate@gmail.com
-    if (email === 'ebekalternate@gmail.com') {
+    if (email === 'ebekalternate@gmail.com' || email === 'eldiiarbekbolotov@gmail.com') {
         return true;
     }
     
@@ -367,9 +366,7 @@ async function isWriter(email) {
             if (error.code === 'PGRST116') {
                 // Check if email is in our predefined writers list
                 const predefinedWriters = [
-                    'writer1@finrise.com',
-                    'writer2@finrise.com',
-                    'writer3@finrise.com',
+                    'eldiiarbekbolotov@gmail.com',
                     'ebekalternate@gmail.com'
                 ];
                 

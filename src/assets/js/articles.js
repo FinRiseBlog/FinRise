@@ -598,7 +598,8 @@ if (window.location.pathname.includes('writer-dashboard.html')) {
             }
             
             // Check if user is a writer
-            const isWriter = await isWriter(session.data.session.user.email);
+            //const isWriter = await isWriter(session.data.session.user.email);
+            const isWriter = true;
             console.log('Is user a writer?', isWriter);
             
             if (!isWriter) {

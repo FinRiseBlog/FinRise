@@ -323,7 +323,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         trackPageView(window.location.pathname);
         
         // Track user interactions
-        trackUserInteractions();
+        //trackUserInteractions();
     } catch (error) {
         console.error('Initialization error:', error);
         // Continue with the app even if there's an error
