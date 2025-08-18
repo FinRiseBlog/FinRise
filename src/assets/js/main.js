@@ -1,3 +1,4 @@
+
 // DOM Elements
 const hamburger = document.querySelector('.hamburger');
 const navLinks = document.querySelector('.nav-links');
@@ -151,6 +152,7 @@ if (loginForm) {
             await signInUser(email, password);
             loginModal.classList.remove('active');
             showNotification('Logged in successfully!', 'success');
+                setTimeout(() => { window.location.reload(); }, 500);
         } catch (error) {
             showNotification(error.message, 'error');
         }
@@ -174,6 +176,7 @@ if (signupForm) {
             await signUpUser(email, password, name);
             signupModal.classList.remove('active');
             showNotification('Account created successfully!', 'success');
+                setTimeout(() => { window.location.reload(); }, 500);
         } catch (error) {
             showNotification(error.message, 'error');
         }
@@ -316,14 +319,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Check if user is logged in
         checkAuthState();
         
-        // Load featured articles
-        loadFeaturedArticles();
+    // Homepage now loads all articles dynamically
         
-        // Track page view
-        trackPageView(window.location.pathname);
         
-        // Track user interactions
-        //trackUserInteractions();
     } catch (error) {
         console.error('Initialization error:', error);
         // Continue with the app even if there's an error
@@ -331,39 +329,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
-// Function to load featured articles
-async function loadFeaturedArticles() {
-    try {
-        const articles = await getFeaturedArticles();
-        if (articles && articles.length > 0) {
-            renderArticles(articles);
-        } else {
-            // Use static articles if no featured articles are found
-            // If no featured articles are found, show a message
-            const articlesGrid = document.querySelector('.articles-grid');
-            if (articlesGrid) {
-                articlesGrid.innerHTML = `
-                    <div class="no-articles">
-                        <h3>No featured articles found</h3>
-                        <p>Check back later for new content or create your own article if you're a writer.</p>
-                    </div>
-                `;
-            }
-        }
-    } catch (error) {
-        console.error('Error loading articles:', error);
-        // Show error message
-        const articlesGrid = document.querySelector('.articles-grid');
-        if (articlesGrid) {
-            articlesGrid.innerHTML = `
-                <div class="no-articles">
-                    <h3>Error loading articles</h3>
-                    <p>There was a problem loading the articles. Please try again later.</p>
-                </div>
-            `;
-        }
-    }
-}
+// Removed featured articles function; homepage now shows all articles
 
 // Function to render articles
 function renderArticles(articles) {
@@ -431,6 +397,7 @@ async function handleAuthStateChange(user) {
                 try {
                     await signOutUser();
                     showNotification('Logged out successfully!', 'success');
+                        setTimeout(() => { window.location.reload(); }, 500);
                 } catch (error) {
                     showNotification(error.message, 'error');
                 }

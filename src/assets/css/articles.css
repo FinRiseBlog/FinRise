@@ -154,6 +154,10 @@
     flex: 1;
 }
 
+.article-author-name {
+    color: var(--primary-color);
+}
+
 .article-tag {
     display: inline-block;
     padding: 0.25rem 0.75rem;
@@ -301,6 +305,7 @@
 .article-header {
     padding: var(--spacing-xl) 0;
     background-color: white;
+    margin-top: 65px;
 }
 
 .article-header-content {

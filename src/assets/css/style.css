@@ -1,12 +1,12 @@
 /* ===== VARIABLES ===== */
 :root {
     /* Colors */
-    --primary-color: #881a0c;
+    --primary-color: #b60f0f;
     --primary-light: #b10909;
-    --primary-dark: #470c04;
-    --secondary-color: #022d5f;
+    --primary-dark: #861203;
+    --secondary-color: #0962b6;
     --secondary-light: #0ca36c;
-    --secondary-dark: #0e2742;
+    --secondary-dark: #053569;
     --dark-color: #000000;
     --dark-light: #334155;
     --light-color: #f8fafc;
@@ -58,6 +58,127 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+:focus {
+    outline: 2px solid rgb(95, 95, 95);
+}
+
+/* Fancy Our Values Section Styles */
+.fancy-values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    margin-top: 2.5rem;
+}
+.fancy-value-card {
+    background: #fff;
+    border-radius: 1.25rem;
+    box-shadow: 0 6px 24px rgba(60, 60, 120, 0.10);
+    padding: 2rem 1.5rem 1.5rem 1.5rem;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+}
+.fancy-value-card .value-icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+.fancy-value-card h3 {
+    margin: 0.5rem 0 0.25rem 0;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #3b3b5c;
+}
+.fancy-value-card p {
+    font-size: 0.98rem;
+    color: #555;
+    margin-bottom: 0.5rem;
+}
+@media (max-width: 700px) {
+    .fancy-values-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    .fancy-value-card {
+        padding: 1.25rem 1rem;
+    }
+}
+/* Fancy Team Section Styles */
+.fancy-team-section {
+    background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+    padding: 60px 0 40px 0;
+}
+.fancy-team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2.5rem;
+    margin-top: 2.5rem;
+}
+.fancy-card {
+    background: #fff;
+    border-radius: 1.5rem;
+    box-shadow: 0 8px 32px rgba(60, 60, 120, 0.12);
+    padding: 2rem 1.5rem 1.5rem 1.5rem;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+}
+.fancy-card .member-image {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 1rem auto;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(60, 60, 120, 0.10);
+    border: 4px solid #e0e7ff;
+}
+.fancy-card .member-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.fancy-card .member-info h3 {
+    margin: 0.5rem 0 0.25rem 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #3b3b5c;
+}
+.fancy-card .member-role {
+    font-size: 1rem;
+    color: var(--primary-color);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+.fancy-card .member-bio {
+    font-size: 0.98rem;
+    color: #555;
+    margin-bottom: 1rem;
+}
+.fancy-card .member-social {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+.fancy-card .member-social a {
+    color: #6366f1;
+    font-size: 1.3rem;
+    transition: color 0.2s;
+}
+.fancy-card .member-social a:hover {
+    color: #3b3b5c;
+}
+@media (max-width: 700px) {
+    .fancy-team-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    .fancy-card {
+        padding: 1.5rem 1rem;
+    }
 }
 
 html {
@@ -161,7 +282,8 @@ section {
 /* ===== BUTTONS ===== */
 .btn {
     display: inline-block;
-    padding: 0.75rem 1.5rem;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
     border-radius: var(--border-radius-md);
     font-weight: 600;
     text-align: center;
@@ -181,6 +303,7 @@ section {
     background: var(--primary-gradient-hover);
     transform: translateY(-2px);
     box-shadow: var(--shadow-lg);
+    color:white;
 }
 
 .btn-secondary {
@@ -244,8 +367,11 @@ section {
 
 .nav-links a {
     color: var(--dark-color);
-    font-weight: 500;
+    font-weight: 600;
     position: relative;
+    font-size: 1.08rem;
+    padding: 0.7rem 1.2rem;
+    border-radius: 0.75rem;
 }
 
 .nav-links a:hover {
@@ -269,6 +395,18 @@ section {
 
 .auth-buttons {
     display: flex;
+    gap: 1rem;
+    .btn {
+        padding: 0.85rem 1.5rem;
+        font-size: 1rem;
+    }
+    .nav-links a {
+        font-size: 1.08rem;
+        padding: 0.7rem 1.2rem;
+    }
+    .auth-buttons {
+        gap: 0.5rem;
+    }
     gap: var(--spacing-md);
 }
 
@@ -701,7 +839,7 @@ section {
 
 /* ===== NEWSLETTER ===== */
 .newsletter {
-    background: var(--secondary-light);
+    background: var(--dark-color);
     color: white;
 }
 
@@ -735,15 +873,6 @@ section {
     font-size: 1rem;
 }
 
-.newsletter-form button {
-    background-color: white;
-    color: var(--primary-color);
-}
-
-.newsletter-form button:hover {
-    background-color: var(--gray-light);
-    color: var(--primary-dark);
-}
 
 /* ===== JOIN COMMUNITY ===== */
 .join-community {

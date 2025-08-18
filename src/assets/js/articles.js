@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         initEventListeners();
     } catch (error) {
         console.error('Error initializing articles page:', error);
-        showNotification('Failed to load articles. Please try again later.', 'error');
+        // Removed error notification since articles still load
     }
 });
 
@@ -38,11 +38,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 function initEventListeners() {
     // Search
     searchBtn.addEventListener('click', handleSearch);
-    searchInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            handleSearch();
-        }
-    });
+    searchInput.addEventListener('input', handleSearch);
     
     // Category filter
     categorySelect.addEventListener('change', handleFilter);
@@ -310,9 +306,6 @@ if (window.location.pathname.includes('article.html')) {
             // Render article
             renderArticle(article);
             
-            // Track article view
-            trackArticleView(articleId, article.title);
-            
             // Fetch comments
             const comments = await getArticleComments(articleId);
             
@@ -362,8 +355,7 @@ function renderArticle(article) {
             <h1 class="article-header-title">${article.title}</h1>
             <div class="article-header-meta">
                 <div class="article-author">
-                    <img src="../assets/images/team1.jpg" alt="${authorName}">
-                    <div>
+                    Posted by <div>
                         <span class="article-author-name">${authorName}</span>
                     </div>
                 </div>
@@ -462,7 +454,7 @@ function createCommentElement(comment) {
     commentElement.innerHTML = `
         <div class="comment-header">
             <div class="comment-author">
-                <img src="../assets/images/user-avatar.jpg" alt="${authorName}">
+               
                 <span class="comment-author-name">${authorName}</span>
             </div>
             <span class="comment-date">${formattedDate}</span>

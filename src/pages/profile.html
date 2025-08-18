@@ -416,6 +416,8 @@
             // Load Saved Articles
             async function loadSavedArticles(userId) {
                 try {
+                    const container = document.getElementById('saved-articles-container');
+                    
                     // Fetch saved articles from localStorage
                     const savedArticleIds = JSON.parse(localStorage.getItem('savedArticles') || '[]');
                     
@@ -442,10 +444,9 @@
                         }
                     } catch (error) {
                         console.error('Error fetching saved article details:', error);
-                        showNotification('Error loading saved articles', 'error');
+                        // Removed error notification to avoid blocking loading
                     }
                     
-                    const container = document.getElementById('saved-articles-container');
                     
                     if (savedArticles.length > 0) {
                         container.innerHTML = '';
@@ -481,7 +482,7 @@
                     }
                 } catch (error) {
                     console.error('Error loading saved articles:', error);
-                    showNotification('Error loading saved articles', 'error');
+                   // showNotification('Error loading saved articles', 'error');
                 }
             }
             

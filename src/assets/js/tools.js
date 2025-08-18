@@ -45,11 +45,11 @@ function initToolNavigation() {
             const toolId = button.getAttribute('data-tool');
             showTool(toolId);
             
-            // Track tool usage
-            trackToolUsage(toolId);
-            
             // Scroll to tool section
             document.getElementById(toolId).scrollIntoView({ behavior: 'smooth' });
+        
+            // Track tool usage
+            trackToolUsage(toolId);
         });
     });
 }
