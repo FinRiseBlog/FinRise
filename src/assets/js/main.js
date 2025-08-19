@@ -377,7 +377,7 @@ async function handleAuthStateChange(user) {
         authButtons.innerHTML = `
             <div class="user-menu">
                 <button class="user-button">
-                    <span>${user.user_metadata.name || user.email}</span>
+                    <span>${(user.user_metadata.name && user.user_metadata.name.length > 8) ? user.user_metadata.name.slice(0,8) + '...' : (user.user_metadata.name || user.email)}</span>
                     <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="user-dropdown">

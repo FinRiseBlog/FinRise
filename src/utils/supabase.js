@@ -1,4 +1,4 @@
-// Supabase Configuration
+// Supabase Configuration (publishable key only, do not share private key)
 const SUPABASE_URL = 'https://qhhtargojbnrnmktroml.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_GxkSILjR3fusTkuAw12zwQ_WpmlZb7E';
 
