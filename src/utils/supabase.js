@@ -351,7 +351,7 @@ async function subscribeToNewsletter(email) {
 
 // Writer Authentication
 async function isWriter(email) {
-    if (email === 'ebekalternate@gmail.com' || email === 'eldiiarbekbolotov@gmail.com') {
+    if (email === 'eldiiarbekbolotov@gmail.com') {
         return true;
     }
     
@@ -366,8 +366,7 @@ async function isWriter(email) {
             if (error.code === 'PGRST116') {
                 // Check if email is in our predefined writers list
                 const predefinedWriters = [
-                    'eldiiarbekbolotov@gmail.com',
-                    'ebekalternate@gmail.com'
+                    'eldiiarbekbolotov@gmail.com'
                 ];
                 
                 return predefinedWriters.includes(email);
@@ -381,10 +380,7 @@ async function isWriter(email) {
         
         // Check if email is in our predefined writers list
         const predefinedWriters = [
-            'writer1@finrise.com',
-            'writer2@finrise.com',
-            'writer3@finrise.com',
-            'ebekalternate@gmail.com'
+            'eldiiarbekbolotov@gmail.com'
         ];
         
         return predefinedWriters.includes(email);
