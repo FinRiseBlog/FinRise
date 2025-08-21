@@ -4,7 +4,7 @@
     --primary-color: #b60f0f;
     --primary-light: #b10909;
     --primary-dark: #861203;
-    --secondary-color: #0962b6;
+    --secondary-color: #0b68be;
     --secondary-light: #0ca36c;
     --secondary-dark: #053569;
     --dark-color: #000000;
@@ -23,8 +23,8 @@
     --dark-gradient: linear-gradient(135deg, var(--dark-color), var(--dark-light));
     
     /* Typography */
-    --heading-font: 'Space Grotesk', sans-serif;
-    --body-font: 'Inter', sans-serif;
+    --heading-font: 'Merriweather', sans-serif;
+    --body-font: 'Poppins', sans-serif;
     
     /* Spacing */
     --spacing-xs: 0.25rem;
