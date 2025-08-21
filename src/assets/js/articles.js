@@ -391,7 +391,7 @@ function renderArticle(article) {
     const articleTags = document.querySelector('.article-tags');
     if (articleTags) {
         // Extract tags from content or use default tags
-        const tags = ['finance', 'gen z', article.category.toLowerCase()];
+        const tags = [article.category.toLowerCase(), 'finance'];
         
         articleTags.innerHTML = '';
         tags.forEach(tag => {
