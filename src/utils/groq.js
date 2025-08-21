@@ -1,65 +1,30 @@
-// Groq API Configuration
-const GROQ_API_KEY = 'ENTER_YOUR_API_KEY_HERE_DUDE';
-const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
+// Netlify Function endpoint for Groq API - works in both local and production
+const isLocal = window.location.hostname === 'localhost' || 
+                window.location.hostname === '127.0.0.1' ||
+                window.location.port === '3000';
+                
+const baseUrl = isLocal ? 'http://localhost:8888' : '';
+const GROQ_FUNCTION_URL = `${baseUrl}/.netlify/functions/groq`;
 
-// Function to get response from Groq API
+// Function to get response from Groq API via Netlify Function
 async function getGroqResponse(userMessage) {
     try {
         // Show typing indicator
         showTypingIndicator();
         
-        // Prepare the request
-        const response = await fetch(GROQ_API_URL, {
+        // Prepare the request to Netlify Function
+        const response = await fetch(GROQ_FUNCTION_URL, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${GROQ_API_KEY}`
+                'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                model: 'llama-3.1-8b-instant',
-                messages: [
-                    {
-                        role: 'system',
-                        content: `You are a helpful AI assistant for FinRise, a finance education platform for Gen Z users. 
-                        Your name is FinBot. You provide clear, concise, and accurate information about personal finance topics 
-                        including budgeting, saving, investing, credit, debt management, and financial planning. 
-                        Your tone is friendly, conversational, and encouraging. You avoid jargon and explain concepts in simple terms.
-                        You should tailor your advice to young adults (18-25) who are likely new to managing their finances.
-                        
-                        When appropriate, suggest relevant FinRise blog articles or tools that might help the user.
-                        
-                        Available blog articles:
-                        1. "Getting Started with Investing: A Gen Z Guide" - For questions about beginning to invest
-                        2. "The 50/30/20 Rule: Budgeting Made Simple" - For budgeting questions
-                        3. "Automate Your Savings: Set It and Forget It" - For saving strategy questions
-                        4. "Understanding Credit Scores: Why They Matter for Gen Z" - For credit-related questions
-                        5. "Side Hustles for College Students: Earn While You Learn" - For income questions
-                        
-                        Available tools:
-                        1. Budget Planner - Helps create a personalized budget based on income and expenses
-                        2. Savings Goal Calculator - Calculates how long it will take to reach savings goals
-                        3. Subscription Tracker - Tracks and analyzes subscription costs
-                        
-                        If asked about topics outside of personal finance, politely redirect the conversation back to financial topics.
-                        If you don't know the answer to a specific financial question, acknowledge this and suggest reliable resources 
-                        where they might find the information.
-                        
-                        Keep your responses concise (under 150 words when possible) and focused on actionable advice.`
-                    },
-                    {
-                        role: 'user',
-                        content: userMessage
-                    }
-                ],
-                temperature: 0.7,
-                max_tokens: 800
-            })
+            body: JSON.stringify({ userMessage })
         });
-        
+
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            throw new Error('Failed to get response from server');
         }
-        
+
         const data = await response.json();
         const botResponse = data.choices[0].message.content;
         
