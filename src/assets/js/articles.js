@@ -197,7 +197,7 @@ function createArticleCard(article) {
             <h3>${article.title}</h3>
             <p>${article.summary}</p>
             <div class="article-meta">
-                <span class="article-author">By ${authorName}</span>
+                <span class="article-author"  style="display:none;">By ${authorName}</span>
                 <span class="article-date">${formattedDate}</span>
             </div>
             <a href="article.html?id=${article.id}" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
@@ -632,9 +632,6 @@ async function initDashboard(userId) {
         console.log('Initializing article editor');
         initArticleEditor(userId);
         
-        // Track page view
-        console.log('Tracking page view');
-        trackPageView('writer-dashboard');
         
         console.log('Dashboard initialization complete');
     } catch (error) {
@@ -886,13 +883,6 @@ function initArticleEditor(userId) {
                 
                 if (result) {
                     showNotification('Article created successfully', 'success');
-                    
-                    // Track article creation
-                    trackInteraction('article_created', {
-                        articleId: result.id,
-                        title: result.title,
-                        category: result.category
-                    });
                     
                     // Reset form
                     newEditorForm.reset();

@@ -517,14 +517,6 @@ async function handleAuthStateChange(user) {
                     const id = e.target.id || e.target.parentElement.id || '';
                     const className = e.target.className || e.target.parentElement.className || '';
                     
-                    // Track interaction
-                    trackInteraction('click', {
-                        element: e.target.tagName,
-                        text: text,
-                        id: id,
-                        class: className,
-                        page: window.location.pathname
-                    });
                 }
             });
             
@@ -534,11 +526,6 @@ async function handleAuthStateChange(user) {
                 const id = e.target.id || '';
                 const className = e.target.className || '';
                 
-                // Track interaction
-                trackInteraction('form_submit', {
-                    form: id || className,
-                    page: window.location.pathname
-                });
             });
             
             // Track chatbot usage
@@ -549,10 +536,6 @@ async function handleAuthStateChange(user) {
                 sendChatMessage = function() {
                     if (chatInput.value.trim() === '') return;
                     
-                    // Track interaction
-                    trackInteraction('chatbot_message', {
-                        message: chatInput.value.trim()
-                    });
                     
                     // Call original function
                     originalSendChatMessage();

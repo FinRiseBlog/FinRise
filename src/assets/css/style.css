@@ -1,12 +1,12 @@
 /* ===== VARIABLES ===== */
 :root {
     /* Colors */
-    --primary-color: #b60f0f;
+    --primary-color: #a00;
     --primary-light: #b10909;
-    --primary-dark: #861203;
-    --secondary-color: #0b68be;
-    --secondary-light: #0ca36c;
-    --secondary-dark: #053569;
+    --primary-dark: #580d03;
+    --secondary-color: #ff1212;
+    --secondary-light: #d51818;
+    --secondary-dark: #9c2929;
     --dark-color: #000000;
     --dark-light: #334155;
     --light-color: #f8fafc;
@@ -23,8 +23,8 @@
     --dark-gradient: linear-gradient(135deg, var(--dark-color), var(--dark-light));
     
     /* Typography */
-    --heading-font: 'Merriweather', sans-serif;
-    --body-font: 'Poppins', sans-serif;
+    --heading-font: 'Roboto', sans-serif;
+    --body-font: 'Noto Sans', sans-serif;
     
     /* Spacing */
     --spacing-xs: 0.25rem;
@@ -366,17 +366,32 @@ section {
     color: var(--dark-color);
 }
 
-.logo h1 {
+.logo h1,.footer-logo h2 {
     font-size: 1.75rem;
+    font-family: 'Playfair Display', arial;
+    font-weight: 100;
+    transform: scaleX(1);
+    letter-spacing: 1px;
     margin-bottom: 0;
+    padding-right: 15px;
+}
+.logo h1:before,.footer-logo h2:before {
+    border-radius: 5px;
+    content: 'FR';
+    margin-right: 5px;
+    background-color: #A00;
+    color: #FFF;
+    padding: 4px 4px;
+    font-family: 'ZCOOL QingKe HuangYou', arial;
 }
 
-.logo span {
+/*.logo span,.footer-logo span {
     background: var(--primary-gradient);
     -webkit-background-clip: text;
+    font-weight: 100;
     background-clip: text;
     color: transparent;
-}
+}*/
 
 .nav-links ul {
     display: flex;
@@ -446,16 +461,19 @@ section {
     display: flex;
     align-items: center;
     gap: var(--spacing-xs);
-    background-color: var(--primary-light);
-    color: white !important;
+    color: var(--secondary-light) !important;
     padding: 0.5rem 1rem;
     border-radius: var(--border-radius-full);
     transition: var(--transition-fast);
 }
 
 .chat-btn:hover {
-    background-color: var(--primary-color);
+    color: var(--secondary-dark) !important;
     transform: translateY(-2px);
+}
+.chat-btn:focus {
+    color: var(--dark-color) !important;
+    outline: 2px solid var(--dark-color) !important;
 }
 
 /* ===== HERO SECTION ===== */
@@ -785,6 +803,7 @@ section {
     font-size: 1.08rem;
     font-style: italic;
     color: var(--dark-color);
+    font-family: --heading-font;
     margin-bottom: 0;
 }
 .testimonial-author {
@@ -893,15 +912,7 @@ section {
 }
 
 .footer-logo h2 {
-    font-size: 2rem;
-    margin-bottom: var(--spacing-sm);
-}
-
-.footer-logo span {
-    background: var(--primary-gradient);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    margin-bottom: 10px;
 }
 
 .footer-logo p {
@@ -910,7 +921,7 @@ section {
 
 .footer-links {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--spacing-xl);
 }
 

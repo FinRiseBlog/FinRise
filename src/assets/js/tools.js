@@ -48,8 +48,6 @@ function initToolNavigation() {
             // Scroll to tool section
             document.getElementById(toolId).scrollIntoView({ behavior: 'smooth' });
         
-            // Track tool usage
-            trackToolUsage(toolId);
         });
     });
 }
@@ -75,8 +73,6 @@ function initBudgetPlanner() {
         e.preventDefault();
         calculateBudget();
         
-        // Track tool usage
-        trackToolUsage('budget-planner');
     });
 }
 
@@ -249,8 +245,6 @@ function initSavingsCalculator() {
         e.preventDefault();
         calculateSavings();
         
-        // Track tool usage
-        trackToolUsage('savings-calculator');
     });
 }
 
@@ -493,8 +487,6 @@ function initSubscriptionTracker() {
         e.preventDefault();
         calculateSubscriptions();
         
-        // Track tool usage
-        trackToolUsage('subscription-tracker');
     });
     
     // Enable remove button for first subscription
