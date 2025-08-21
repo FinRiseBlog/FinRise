@@ -1,5 +1,5 @@
 // Groq API Configuration
-const GROQ_API_KEY = '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';
+const GROQ_API_KEY = 'ENTER_YOUR_API_KEY_HERE_DUDE';
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 
 // Function to get response from Groq API
@@ -16,7 +16,7 @@ async function getGroqResponse(userMessage) {
                 'Authorization': `Bearer ${GROQ_API_KEY}`
             },
             body: JSON.stringify({
-                model: 'llama3-70b-8192',
+                model: 'llama-3.1-8b-instant',
                 messages: [
                     {
                         role: 'system',
