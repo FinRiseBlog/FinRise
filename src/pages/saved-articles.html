@@ -183,7 +183,7 @@
             
             <div id="no-saved-articles" class="no-saved-articles" style="display: none;">
                 <h2>No Saved Articles Yet</h2>
-                <p>You haven't saved any articles yet. Browse our articles and click the "Save" button to add them to your saved articles.</p>
+                <p>You haven't saved any articles on this device. Browse our articles and click the "Save" button to add them to your saved articles.</p>
                 <a href="articles.html" class="btn btn-primary">Browse Articles</a>
             </div>
         </div>
@@ -292,7 +292,8 @@
                 try {
                     // Fetch saved articles from localStorage
                     const savedArticleIds = JSON.parse(localStorage.getItem('savedArticles') || '[]');
-                    
+                    const container = document.getElementById('saved-articles-container');
+                    const noSavedArticles = document.getElementById('no-saved-articles');
                     // If no saved articles, show empty state
                     if (savedArticleIds.length === 0) {
                         container.innerHTML = '';
@@ -318,8 +319,7 @@
                         return;
                     }
                     
-                    const container = document.getElementById('saved-articles-container');
-                    const noSavedArticles = document.getElementById('no-saved-articles');
+                    
                     
                     if (savedArticles.length > 0) {
                         container.innerHTML = '';
