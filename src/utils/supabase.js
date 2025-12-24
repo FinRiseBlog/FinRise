@@ -3,7 +3,10 @@ const SUPABASE_URL = "https://qmlmabefqggosyjfripq.supabase.co";
 const SUPABASE_KEY = "sb_publishable_3sU7_fI84LdaU1k38Qfbeg_FiDuDNkf";
 
 // Initialize Supabase client
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+window.supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
 
 // Authentication Functions
 async function signUpUser(email, password, name) {
@@ -13,7 +16,7 @@ async function signUpUser(email, password, name) {
       throw new Error("Password should be at least 6 characters.");
     }
 
-    const { data, error } = await supabase.auth.signUp({
+    const { data, error } = await window.supabaseClient.auth.signUp({
       email,
       password,
       options: {
@@ -47,10 +50,12 @@ async function signUpUser(email, password, name) {
 
 async function signInUser(email, password) {
   try {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    const { data, error } = await window.supabaseClient.auth.signInWithPassword(
+      {
+        email,
+        password,
+      }
+    );
 
     if (error) throw error;
 
@@ -63,7 +68,7 @@ async function signInUser(email, password) {
 
 async function signOutUser() {
   try {
-    const { error } = await supabase.auth.signOut();
+    const { error } = await window.supabaseClient.auth.signOut();
 
     if (error) throw error;
 
@@ -76,7 +81,7 @@ async function signOutUser() {
 
 async function checkAuthState() {
   try {
-    const { data } = await supabase.auth.getSession();
+    const { data } = await window.supabaseClient.auth.getSession();
 
     if (data.session) {
       // User is logged in
@@ -93,7 +98,7 @@ async function checkAuthState() {
 // User Profile Functions
 async function createUserProfile(userId, name, email) {
   try {
-    const { error } = await supabase.from("profiles").insert({
+    const { error } = await window.supabaseClient.from("profiles").insert({
       id: userId,
       name,
       email,
@@ -111,7 +116,7 @@ async function createUserProfile(userId, name, email) {
 
 async function getUserProfile(userId) {
   try {
-    const { data, error } = await supabase
+    const { data, error } = await window.supabaseClient
       .from("profiles")
       .select("*")
       .eq("id", userId)
@@ -128,7 +133,7 @@ async function getUserProfile(userId) {
 
 async function updateUserProfile(userId, updates) {
   try {
-    const { error } = await supabase
+    const { error } = await window.supabaseClient
       .from("profiles")
       .update(updates)
       .eq("id", userId);
@@ -145,7 +150,7 @@ async function updateUserProfile(userId, updates) {
 // Article Functions
 async function getFeaturedArticles() {
   try {
-    const { data, error } = await supabase
+    const { data, error } = await window.supabaseClient
       .from("articles")
       .select("*")
       .eq("is_featured", true)
@@ -166,7 +171,7 @@ async function getFeaturedArticles() {
 
 async function getAllArticles() {
   try {
-    const { data, error } = await supabase
+    const { data, error } = await window.supabaseClient
       .from("articles")
       .select("*")
       .order("created_at", { ascending: false });
@@ -185,7 +190,7 @@ async function getAllArticles() {
 
 async function getArticleById(id) {
   try {
-    const { data, error } = await supabase
+    const { data, error } = await window.supabaseClient
       .from("articles")
       .select(
         `
@@ -232,7 +237,7 @@ async function createArticle(article) {
 
     console.log("Submitting article to Supabase:", article);
 
-    const { data, error } = await supabase
+    const { data, error } = await window.supabaseClient
       .from("articles")
       .insert(article)
       .select();
@@ -252,7 +257,7 @@ async function createArticle(article) {
 
 async function updateArticle(id, updates) {
   try {
-    const { error } = await supabase
+    const { error } = await window.supabaseClient
       .from("articles")
       .update(updates)
       .eq("id", id);
@@ -268,7 +273,10 @@ async function updateArticle(id, updates) {
 
 async function deleteArticle(id) {
   try {
-    const { error } = await supabase.from("articles").delete().eq("id", id);
+    const { error } = await window.supabaseClient
+      .from("articles")
+      .delete()
+      .eq("id", id);
 
     if (error) throw error;
 
@@ -282,7 +290,7 @@ async function deleteArticle(id) {
 // Comment Functions
 async function getArticleComments(articleId) {
   try {
-    const { data, error } = await supabase
+    const { data, error } = await window.supabaseClient
       .from("comments")
       .select(
         `
@@ -304,7 +312,7 @@ async function getArticleComments(articleId) {
 
 async function createComment(comment) {
   try {
-    const { data, error } = await supabase
+    const { data, error } = await window.supabaseClient
       .from("comments")
       .insert(comment)
       .select();
@@ -320,7 +328,7 @@ async function createComment(comment) {
 
 async function deleteComment(id, userId) {
   try {
-    const { error } = await supabase
+    const { error } = await window.supabaseClient
       .from("comments")
       .delete()
       .eq("id", id)
@@ -338,7 +346,7 @@ async function deleteComment(id, userId) {
 // Newsletter Functions
 async function subscribeToNewsletter(email) {
   try {
-    const { data, error } = await supabase
+    const { data, error } = await window.supabaseClient
       .from("newsletter_subscribers")
       .insert({ email, subscribed_at: new Date() })
       .select();
@@ -365,7 +373,7 @@ async function isWriter(email) {
   }
 
   try {
-    const { data, error } = await supabase
+    const { data, error } = await window.supabaseClient
       .from("writers")
       .select("*")
       .eq("email", email)
@@ -421,7 +429,7 @@ async function insertSampleData() {
       { email: "writer3@finrise.com", name: "Jordan Lee" },
     ];
 
-    const { error: writersError } = await supabase
+    const { error: writersError } = await window.supabaseClient
       .from("writers")
       .insert(writers);
 
